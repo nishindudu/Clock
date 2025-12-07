@@ -1,3 +1,23 @@
+function toggleSettings() {
+    const settingsDiv = document.querySelector('.settings');
+    const toggle = document.querySelector('.settings-toggle');
+    const settingsVisible = !settingsDiv.classList.contains('hidden');
+
+    toggle.classList.toggle('active');
+
+    if (settingsVisible) {
+        settingsDiv.classList.toggle('opacity-0');
+        setTimeout(() => {
+            settingsDiv.classList.toggle('hidden');
+        }, 300);
+    } else {
+        settingsDiv.classList.toggle('hidden');
+        setTimeout(() => {
+            settingsDiv.classList.toggle('opacity-0');
+        }, 100);
+    }
+}
+
 function getTime() {
     const now = new Date();
     const milliseconds = now.getMilliseconds();
@@ -24,9 +44,17 @@ function updateClock() {
 }
 
 let updateFrequency = 10;
+let bgColour = "#222222";
 
 clock = setInterval(updateClock, updateFrequency);
 updateClock();
+
+function setBGColour() {
+    const bgColourInput = document.getElementById('bgcolor');
+    bgColour = bgColourInput.value;
+    document.body.style.backgroundColor = bgColour;
+}
+
 
 function update() {
     const updateFreqInput = document.getElementById('updatefreq');
@@ -37,11 +65,18 @@ function update() {
         updateFrequency = newFreq;
         clock = setInterval(updateClock, updateFrequency);
     }
+
+    const bgColourInput = document.getElementById('bgcolor');
+    bgColour = bgColourInput.value;
+    setBGColour();
 }
 
 function init() {
     const updateFreqInput = document.getElementById('updatefreq');
     updateFreqInput.value = updateFrequency;
+
+    const bgColourInput = document.getElementById('bgcolor');
+    bgColourInput.value = bgColour;
 }
 
 init();
